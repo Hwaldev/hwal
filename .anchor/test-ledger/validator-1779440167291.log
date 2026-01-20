@@ -1,0 +1,32 @@
+[2026-05-22T08:56:07.295674600Z INFO  solana_test_validator] agave-validator 3.1.14 (src:ca2c682f; feat:534737035, client:Agave)
+[2026-05-22T08:56:07.297283000Z INFO  solana_test_validator] Starting validator with: ArgsOs {
+        inner: [
+            "solana-test-validator",
+            "--ledger",
+            ".anchor\\test-ledger",
+            "--mint",
+            "7uWAijGKK2aRBvab6mgbU8QgkM4arfcZbAn15P2cAPxX",
+            "--bpf-program",
+            "fSLsjTm9PGfbrAgosY2kYb1MnFEpn8LALo5cY5a4AkJ",
+            "C:\\Users\\baayo\\Desktop\\pro\\낭만\\chalna\\target\\deploy\\chalna.so",
+            "--bind-address",
+            "0.0.0.0",
+            "--rpc-port",
+            "8899",
+            "--url",
+            "https://api.devnet.solana.com",
+        ],
+    }
+[2026-05-22T08:56:07.298799000Z WARN  solana_perf] CUDA is disabled
+[2026-05-22T08:56:07.298963900Z INFO  solana_perf] AVX detected
+[2026-05-22T08:56:07.298978300Z INFO  solana_perf] AVX2 detected
+[2026-05-22T08:56:07.362975300Z INFO  solana_faucet::faucet] Faucet started. Listening on: 0.0.0.0:9900
+[2026-05-22T08:56:07.363005400Z INFO  solana_faucet::faucet] Faucet account address: AvHmfVLqhU85FemouP5F3fHjpWkTkhHdPvCmSPkMf79y
+[2026-05-22T08:56:07.369129400Z INFO  agave_validator::admin_rpc_service] started admin rpc service!
+[2026-05-22T08:56:07.370496600Z INFO  solana_test_validator] Feature for mustRekeyVm2QHYB3JPefBiU4BY3Z6JkW2k3Scw5GWP deactivated
+[2026-05-22T08:56:07.415162200Z INFO  solana_ledger::blockstore] Opening blockstore at ".anchor\\test-ledger\\rocksdb"
+[2026-05-22T08:56:07.417845400Z WARN  solana_ledger::blockstore_db] Unable to detect Rocks columns: Error { message: "IO error: No such file or directory: Failed to open NewSequentialFile.anchor\\test-ledger\\rocksdb/CURRENT: ������ ������ ã�� �� �����ϴ�.\r\n" }
+[2026-05-22T08:56:07.779036400Z INFO  solana_ledger::blockstore] Opening blockstore done; blockstore open took 363ms
+[2026-05-22T08:56:07.810100100Z INFO  solana_metrics::metrics] metrics disabled: environment variable not found
+[2026-05-22T08:56:07.811251200Z INFO  solana_metrics::metrics] datapoint: shred_insert_is_full slot=0i total_time_ms=1i last_index=31i num_repaired=0i num_recovered=0i
+[2026-05-22T08:56:08.001290600Z INFO  agave_snapshots::unarchive] Extracting ".anchor\\test-ledger\\genesis.tar.bz2"...

@@ -1,0 +1,14 @@
+\\?\C:\Users\baayo\Desktop\pro\낭만\chalna\target\sbpf-solana-solana\release\deps\serde-189c2231db7b6178.d: C:\Users\baayo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\lib.rs C:\Users\baayo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\integer128.rs C:\Users\baayo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\mod.rs C:\Users\baayo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\de.rs C:\Users\baayo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\ser.rs \\?\C:\Users\baayo\Desktop\pro\낭만\chalna\target\sbpf-solana-solana\release\build\serde-e973823654130452\out\private.rs
+
+\\?\C:\Users\baayo\Desktop\pro\낭만\chalna\target\sbpf-solana-solana\release\deps\libserde-189c2231db7b6178.rlib: C:\Users\baayo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\lib.rs C:\Users\baayo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\integer128.rs C:\Users\baayo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\mod.rs C:\Users\baayo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\de.rs C:\Users\baayo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\ser.rs \\?\C:\Users\baayo\Desktop\pro\낭만\chalna\target\sbpf-solana-solana\release\build\serde-e973823654130452\out\private.rs
+
+\\?\C:\Users\baayo\Desktop\pro\낭만\chalna\target\sbpf-solana-solana\release\deps\libserde-189c2231db7b6178.rmeta: C:\Users\baayo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\lib.rs C:\Users\baayo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\integer128.rs C:\Users\baayo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\mod.rs C:\Users\baayo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\de.rs C:\Users\baayo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\ser.rs \\?\C:\Users\baayo\Desktop\pro\낭만\chalna\target\sbpf-solana-solana\release\build\serde-e973823654130452\out\private.rs
+
+C:\Users\baayo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\lib.rs:
+C:\Users\baayo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\integer128.rs:
+C:\Users\baayo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\mod.rs:
+C:\Users\baayo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\de.rs:
+C:\Users\baayo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\ser.rs:
+\\?\C:\Users\baayo\Desktop\pro\낭만\chalna\target\sbpf-solana-solana\release\build\serde-e973823654130452\out\private.rs:
+
+# env-dep:OUT_DIR=\\\\?\\C:\\Users\\baayo\\Desktop\\pro\\낭만\\chalna\\target\\sbpf-solana-solana\\release\\build\\serde-e973823654130452\\out
