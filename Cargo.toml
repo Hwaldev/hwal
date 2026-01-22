@@ -1,0 +1,13 @@
+[workspace]
+members = ["programs/*"]
+resolver = "2"
+
+[workspace.package]
+version = "0.0.1"
+edition = "2021"
+authors = ["Chalna core"]
+license = "MIT"
+rust-version = "1.78"
+
+[workspace.dependencies]
+anchor-lang = "0.30.0"
