@@ -1,7 +1,15 @@
 # Hwal 刹那
 
-On-chain trigger engine for Solana (early scaffolding).
+Sub-slot conditional execution primitive on Solana.
 
-Stop-loss / take-profit / trailing-stop orders evaluated inside the program.
+Stop-loss, take-profit, and trailing-stop orders that fire from program state.
 
-See [LICENSE](LICENSE).
+## Build
+
+```bash
+git clone https://github.com/Hwaldev/hwal.git
+cd hwal
+anchor build
+```
+
+See [LICENSE](LICENSE) and [SECURITY.md](SECURITY.md).
