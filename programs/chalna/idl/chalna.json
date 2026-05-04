@@ -1,0 +1,219 @@
+{
+  "address": "fSLsjTm9PGfbrAgosY2kYb1MnFEpn8LALo5cY5a4AkJ",
+  "metadata": {
+    "name": "chalna",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Chalna 50ms-precision on-chain trigger engine for Solana"
+  },
+  "instructions": [
+    {
+      "name": "initialize_config",
+      "discriminator": [208, 127, 21, 1, 194, 190, 196, 70],
+      "accounts": [
+        { "name": "config", "writable": true },
+        { "name": "admin", "writable": true, "signer": true },
+        { "name": "system_program" }
+      ],
+      "args": [
+        { "name": "fee_bps", "type": "u16" },
+        { "name": "keeper_reward_bps", "type": "u16" }
+      ]
+    },
+    {
+      "name": "update_config",
+      "discriminator": [29, 158, 252, 191, 10, 83, 219, 99],
+      "accounts": [
+        { "name": "config", "writable": true },
+        { "name": "admin", "signer": true }
+      ],
+      "args": [
+        { "name": "new_admin", "type": { "option": "pubkey" } },
+        { "name": "new_fee_receiver", "type": { "option": "pubkey" } },
+        { "name": "new_fee_bps", "type": { "option": "u16" } },
+        { "name": "new_keeper_reward_bps", "type": { "option": "u16" } }
+      ]
+    },
+    {
+      "name": "initialize_price_feed",
+      "discriminator": [171, 18, 130, 11, 144, 226, 92, 192],
+      "accounts": [
+        { "name": "feed", "writable": true },
+        { "name": "admin", "writable": true, "signer": true },
+        { "name": "system_program" }
+      ],
+      "args": [
+        { "name": "symbol", "type": { "array": ["u8", 16] } },
+        { "name": "decimals", "type": "u8" },
+        { "name": "initial_price", "type": "u64" }
+      ]
+    },
+    {
+      "name": "update_price_feed",
+      "discriminator": [60, 138, 207, 21, 60, 14, 220, 213],
+      "accounts": [
+        { "name": "feed", "writable": true },
+        { "name": "authority", "signer": true }
+      ],
+      "args": [
+        { "name": "new_price", "type": "u64" }
+      ]
+    },
+    {
+      "name": "open_position",
+      "discriminator": [135, 128, 47, 77, 15, 152, 240, 49],
+      "accounts": [
+        { "name": "position", "writable": true },
+        { "name": "vault", "writable": true },
+        { "name": "feed" },
+        { "name": "owner", "writable": true, "signer": true },
+        { "name": "system_program" }
+      ],
+      "args": [
+        { "name": "nonce", "type": "u64" },
+        { "name": "side", "type": "u8" },
+        { "name": "collateral", "type": "u64" },
+        { "name": "stop_price", "type": "u64" },
+        { "name": "take_profit_price", "type": "u64" },
+        { "name": "trailing_offset", "type": "u64" }
+      ]
+    },
+    {
+      "name": "update_triggers",
+      "discriminator": [197, 124, 91, 142, 99, 12, 64, 200],
+      "accounts": [
+        { "name": "position", "writable": true },
+        { "name": "owner", "signer": true }
+      ],
+      "args": [
+        { "name": "stop_price", "type": "u64" },
+        { "name": "take_profit_price", "type": "u64" },
+        { "name": "trailing_offset", "type": "u64" }
+      ]
+    },
+    {
+      "name": "tick_position",
+      "discriminator": [60, 13, 144, 7, 134, 11, 70, 18],
+      "accounts": [
+        { "name": "position", "writable": true },
+        { "name": "vault", "writable": true },
+        { "name": "feed" },
+        { "name": "config" },
+        { "name": "fee_receiver", "writable": true },
+        { "name": "keeper", "writable": true, "signer": true },
+        { "name": "owner", "writable": true },
+        { "name": "system_program" }
+      ],
+      "args": []
+    },
+    {
+      "name": "cancel_position",
+      "discriminator": [222, 17, 229, 88, 78, 41, 33, 71],
+      "accounts": [
+        { "name": "position", "writable": true },
+        { "name": "vault", "writable": true },
+        { "name": "owner", "writable": true, "signer": true },
+        { "name": "system_program" }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Config",
+      "discriminator": [155, 12, 170, 224, 30, 250, 204, 130],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "admin", "type": "pubkey" },
+          { "name": "fee_receiver", "type": "pubkey" },
+          { "name": "fee_bps", "type": "u16" },
+          { "name": "keeper_reward_bps", "type": "u16" },
+          { "name": "positions_opened", "type": "u64" },
+          { "name": "positions_triggered", "type": "u64" },
+          { "name": "positions_cancelled", "type": "u64" },
+          { "name": "total_fees_collected", "type": "u64" },
+          { "name": "bump", "type": "u8" }
+        ]
+      }
+    },
+    {
+      "name": "PriceFeed",
+      "discriminator": [13, 9, 7, 220, 7, 224, 6, 156],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "authority", "type": "pubkey" },
+          { "name": "symbol", "type": { "array": ["u8", 16] } },
+          { "name": "decimals", "type": "u8" },
+          { "name": "price", "type": "u64" },
+          { "name": "updated_at", "type": "i64" },
+          { "name": "update_count", "type": "u64" },
+          { "name": "bump", "type": "u8" }
+        ]
+      }
+    },
+    {
+      "name": "Position",
+      "discriminator": [170, 188, 143, 228, 122, 64, 247, 208],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "owner", "type": "pubkey" },
+          { "name": "feed", "type": "pubkey" },
+          { "name": "vault", "type": "pubkey" },
+          { "name": "nonce", "type": "u64" },
+          { "name": "side", "type": "u8" },
+          { "name": "status", "type": "u8" },
+          { "name": "trigger_reason", "type": "u8" },
+          { "name": "pad", "type": "u8" },
+          { "name": "collateral", "type": "u64" },
+          { "name": "entry_price", "type": "u64" },
+          { "name": "stop_price", "type": "u64" },
+          { "name": "take_profit_price", "type": "u64" },
+          { "name": "trailing_offset", "type": "u64" },
+          { "name": "trailing_extreme", "type": "u64" },
+          { "name": "opened_at", "type": "i64" },
+          { "name": "last_tick_at", "type": "i64" },
+          { "name": "settled_at", "type": "i64" },
+          { "name": "tick_count", "type": "u64" },
+          { "name": "bump", "type": "u8" },
+          { "name": "vault_bump", "type": "u8" },
+          { "name": "reserved", "type": { "array": ["u8", 32] } }
+        ]
+      }
+    }
+  ],
+  "events": [
+    { "name": "ConfigInitialized", "discriminator": [109, 173, 132, 247, 85, 47, 156, 71] },
+    { "name": "ConfigUpdated", "discriminator": [195, 14, 165, 23, 219, 99, 91, 220] },
+    { "name": "PriceFeedInitialized", "discriminator": [62, 91, 211, 100, 197, 11, 19, 23] },
+    { "name": "PriceFeedUpdated", "discriminator": [157, 21, 191, 117, 119, 173, 1, 91] },
+    { "name": "PositionOpened", "discriminator": [60, 162, 92, 41, 142, 199, 84, 33] },
+    { "name": "TriggersUpdated", "discriminator": [10, 17, 89, 247, 168, 39, 245, 209] },
+    { "name": "PositionTicked", "discriminator": [37, 138, 71, 51, 187, 122, 67, 211] },
+    { "name": "PositionTriggered", "discriminator": [148, 220, 25, 13, 192, 95, 217, 134] },
+    { "name": "PositionCancelled", "discriminator": [191, 102, 27, 142, 73, 81, 218, 198] }
+  ],
+  "errors": [
+    { "code": 6000, "name": "FeeBpsTooHigh", "msg": "Fee bps exceeds maximum allowed" },
+    { "code": 6001, "name": "KeeperRewardTooHigh", "msg": "Keeper reward bps exceeds maximum allowed" },
+    { "code": 6002, "name": "NotAdmin", "msg": "Caller is not the configured admin" },
+    { "code": 6003, "name": "NotPositionOwner", "msg": "Caller is not the position owner" },
+    { "code": 6004, "name": "NotFeedAuthority", "msg": "Caller is not the price feed authority" },
+    { "code": 6005, "name": "InvalidSide", "msg": "Invalid position side: must be 0 (long) or 1 (short)" },
+    { "code": 6006, "name": "CollateralTooSmall", "msg": "Collateral is below the minimum allowed" },
+    { "code": 6007, "name": "PositionNotOpen", "msg": "Position is not open" },
+    { "code": 6008, "name": "PriceFeedStale", "msg": "Price feed has not been updated recently enough" },
+    { "code": 6009, "name": "PriceFeedZero", "msg": "Price feed price is zero" },
+    { "code": 6010, "name": "InvalidStopPrice", "msg": "Stop price is on the wrong side of entry for this side" },
+    { "code": 6011, "name": "InvalidTakeProfitPrice", "msg": "Take-profit price is on the wrong side of entry for this side" },
+    { "code": 6012, "name": "InvalidTrailingOffset", "msg": "Trailing offset is larger than entry price" },
+    { "code": 6013, "name": "MathOverflow", "msg": "Math overflow" },
+    { "code": 6014, "name": "TrailingUnderflow", "msg": "Trailing extreme underflow" },
+    { "code": 6015, "name": "InsufficientVaultLamports", "msg": "Insufficient lamports in position vault" },
+    { "code": 6016, "name": "InvalidVault", "msg": "Position vault PDA does not match expected" },
+    { "code": 6017, "name": "NoTriggerHit", "msg": "No trigger condition met" },
+    { "code": 6018, "name": "FeedMismatch", "msg": "Feed mismatch: position was opened against a different feed" }
+  ]
+}
