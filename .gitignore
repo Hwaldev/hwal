@@ -6,6 +6,12 @@ node_modules
 test-ledger
 .yarn
 *.log
-.dev-progress.md
-_snapshot_for_history/
-_build_history.py
+dist
+build
+.vscode
+.idea
+package-lock.json
+yarn.lock
+.env
+.env.local
+.env.*.local
