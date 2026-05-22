@@ -25,9 +25,11 @@
 
 Sub-slot conditional execution primitive on Solana.
 
-Stop-loss, take-profit, and trailing-stop orders that fire from program state, not from a keeper polling an L1 RPC. Every position is a single PDA with a snapshot of its triggers and a trailing extreme. Any caller (the trader, a permissionless keeper, a MagicBlock ephemeral rollup worker) can submit a `tick_position` instruction. The program re-reads the configured price feed, advances the trailing extreme, evaluates the three trigger conditions, and if any fires it settles the position in the same transaction by paying the keeper, the fee receiver, and the trader.
+1ms reflex. On-chain. A Pyth Lazer feed pushed into a MagicBlock ephemeral rollup with 50ms slots, with the trigger evaluation and atomic L1 settlement living inside a single Anchor program. Anyone can call the tick. Whoever lands the firing transaction earns a fee.
 
-The interesting pairing: a Pyth Lazer 1ms channel pushed into a MagicBlock ephemeral rollup with 50ms slots collapses the trigger reflex into a single rollup block. Settlement still commits back to Solana L1 atomically. The same Anchor program works on plain L1 with a polled keeper as the fallback path.
+The primitive is general. The first three trigger templates ship as stop-loss, take-profit, and trailing-stop because those are the simplest expression of the pattern. The actual surface is "conditional position on a 1ms oracle inside a 50ms slot". Sub-slot HFT, instant liquidation, cross-DEX arbitrage, autonomous treasury rules, MEV-style reflex strategies, copy-trading, and vault rebalancing all reduce to the same shape: a condition over an oracle, a position with collateral, an atomic settlement when the condition fires.
+
+The pairing is the unlock. Pyth Lazer alone collapses the price cadence to 1ms. MagicBlock ER alone collapses the slot cadence to 50ms. Neither product solves the trigger problem by itself. The trigger primitive that pairs them was missing. That is what this repo is.
 
 ## Features
 
@@ -175,11 +177,13 @@ V0 to V1 collapses the polling cadence (the off-chain keeper no longer dominates
 
 ## Why this matters
 
-Most on-chain stop-loss flows look like this: a keeper polls an RPC node for the latest oracle price, sees the trigger, then races to land an instruction on L1 before the price moves again. The end-to-end latency of that loop is dominated by two things. RPC polling cadence (hundreds of ms, capped by rate limits and bot cost) and L1 block inclusion (~400 ms slot). Worst case, a multi-second window separates oracle truth from settlement.
+Sub-slot conditional execution has been the missing primitive on Solana for two years. Every workaround is the same loop. An off-chain bot polls an RPC node for the latest oracle price, sees the trigger, then races to land an instruction on L1 before the price moves again. The end-to-end latency of that loop is dominated by two things. RPC polling cadence (hundreds of ms, capped by rate limits and bot cost) and L1 block inclusion (~400 ms slot). Worst case, a multi-second window separates oracle truth from settlement.
 
-Hwal inverts the loop. Position state and trigger logic live inside a single Anchor program. Any party with access to a fresh price update can settle. Two recently shipped pieces of Solana infrastructure remove the two remaining bottlenecks. Pyth Lazer makes the latest price available on a 1 ms channel, verifiable on-chain. MagicBlock's ephemeral rollups produce 50 ms slots with atomic L1 commit. Hwal is the trigger primitive that sits on top of both: position state delegates into the ER, Lazer pushes into the cached PriceFeed every ms, `tick_position` runs at ER cadence, and the moment a trigger fires the settlement commits back to L1 in one transaction.
+This kills every product class that needs sub-slot reflex. HFT engines that need to react inside one slot. Instant liquidators that need to fire the moment a position becomes underwater. Cross-DEX arbitrage that needs to settle both legs before the spread closes. Stop-loss and take-profit orders that need to fire at the price the trader set. Autonomous treasury rules that need to act on real-time market data. All of them have been forced to either build their own off-chain infrastructure or accept stale data.
 
-The trigger stops being a race condition between an off-chain bot and the market. It becomes a deterministic state transition that happens in the same block as the price update.
+Hwal removes the loop. Two recently shipped pieces of Solana infrastructure unlock the path. Pyth Lazer makes the latest price available on a 1 ms channel, verifiable on-chain. MagicBlock's ephemeral rollups produce 50 ms slots with atomic L1 commit. Hwal is the trigger primitive that sits on top of both: position state delegates into the ER, Lazer pushes into the cached PriceFeed every ms, `tick_position` runs at ER cadence, and the moment a trigger fires the settlement commits back to L1 in one transaction.
+
+The trigger stops being a race condition between an off-chain bot and the market. It becomes a deterministic state transition that happens in the same rollup block as the price update.
 
 ## Project structure
 
