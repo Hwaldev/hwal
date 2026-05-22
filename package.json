@@ -1,8 +1,8 @@
 {
-  "name": "chalna",
+  "name": "hwal",
   "version": "0.1.0",
   "private": true,
-  "description": "Chalna 50ms trigger engine for Solana",
+  "description": "Hwal 50ms trigger engine for Solana",
   "license": "MIT",
   "scripts": {
     "lint": "prettier --check tests/**/*.ts scripts/**/*.ts",

@@ -1,5 +1,5 @@
 {
-  "name": "Chalna Solana Anchor Dev",
+  "name": "Hwal Solana Anchor Dev",
   "image": "mcr.microsoft.com/devcontainers/rust:1-bookworm",
   "features": {
     "ghcr.io/devcontainers/features/node:1": {

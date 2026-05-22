@@ -1,10 +1,10 @@
-# Chalna devnet deploy runbook
+# Hwal devnet deploy runbook
 
 Status as of this commit:
 
-- `target/deploy/chalna.so` is built (322 KB)
+- `target/deploy/hwal.so` is built (322 KB)
 - Program ID is `fSLsjTm9PGfbrAgosY2kYb1MnFEpn8LALo5cY5a4AkJ`
-- Program upgrade keypair backed up to `C:\Users\baayo\.claude\keys\chalna\`
+- Program upgrade keypair backed up to `C:\Users\baayo\.claude\keys\hwal\`
 - `node_modules` installed
 - Anchor.toml cluster is `devnet`
 - Wallet `7uWAijGKK2aRBvab6mgbU8QgkM4arfcZbAn15P2cAPxX` holds only 0.166 SOL.
@@ -32,7 +32,7 @@ solana balance
 ## Deploy
 
 ```powershell
-cd C:\Users\baayo\Desktop\pro\낭만\chalna
+cd C:\Users\baayo\Desktop\pro\낭만\hwal
 anchor deploy --provider.cluster devnet
 ```
 
@@ -46,7 +46,7 @@ $env:ANCHOR_WALLET = "C:\Users\baayo\.config\solana\id.json"
 npx ts-node scripts/setup-devnet.ts
 ```
 
-Outputs the addresses of `Config` and the `SOL` price feed. A feed-authority keypair is written to `~\.config\solana\chalna-feed-authority.json`.
+Outputs the addresses of `Config` and the `SOL` price feed. A feed-authority keypair is written to `~\.config\solana\hwal-feed-authority.json`.
 
 ## Push a price
 

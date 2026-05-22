@@ -2,7 +2,7 @@
 
 ## Pledge
 
-The Chalna project is committed to providing a welcoming and respectful
+The Hwal project is committed to providing a welcoming and respectful
 environment for everyone who contributes, regardless of experience, background,
 or identity.
 

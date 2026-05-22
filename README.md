@@ -1,12 +1,12 @@
-# Chalna 刹那
+# Hwal 활
 
 <p align="center">
   <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-1f6f3c?style=for-the-badge" alt="license"/></a>
-  <a href="https://github.com/Hwaldev/chalna/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/Hwaldev/chalna/ci.yml?branch=main&style=for-the-badge&label=ci&color=1f6f3c" alt="ci"/></a>
-  <a href="https://github.com/Hwaldev/chalna/releases"><img src="https://img.shields.io/github/v/release/Hwaldev/chalna?style=for-the-badge&color=ff5b1f" alt="release"/></a>
-  <a href="https://github.com/Hwaldev/chalna/commits/main"><img src="https://img.shields.io/github/last-commit/Hwaldev/chalna?style=for-the-badge&color=1f6f3c" alt="last commit"/></a>
-  <a href="https://github.com/Hwaldev/chalna/stargazers"><img src="https://img.shields.io/github/stars/Hwaldev/chalna?style=for-the-badge&color=ff5b1f" alt="stars"/></a>
-  <a href="https://github.com/Hwaldev/chalna/issues"><img src="https://img.shields.io/github/issues/Hwaldev/chalna?style=for-the-badge&color=1f6f3c" alt="issues"/></a>
+  <a href="https://github.com/Hwaldev/hwal/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/Hwaldev/hwal/ci.yml?branch=main&style=for-the-badge&label=ci&color=1f6f3c" alt="ci"/></a>
+  <a href="https://github.com/Hwaldev/hwal/releases"><img src="https://img.shields.io/github/v/release/Hwaldev/hwal?style=for-the-badge&color=ff5b1f" alt="release"/></a>
+  <a href="https://github.com/Hwaldev/hwal/commits/main"><img src="https://img.shields.io/github/last-commit/Hwaldev/hwal?style=for-the-badge&color=1f6f3c" alt="last commit"/></a>
+  <a href="https://github.com/Hwaldev/hwal/stargazers"><img src="https://img.shields.io/github/stars/Hwaldev/hwal?style=for-the-badge&color=ff5b1f" alt="stars"/></a>
+  <a href="https://github.com/Hwaldev/hwal/issues"><img src="https://img.shields.io/github/issues/Hwaldev/hwal?style=for-the-badge&color=1f6f3c" alt="issues"/></a>
 </p>
 
 <p align="center">
@@ -33,12 +33,9 @@ Stop-loss, take-profit, and trailing-stop orders that fire from program state, n
 | Pyth pull receiver (V1) | planned | swap `update_price_feed` verify path |
 | MagicBlock ER (V2) | planned | 50 ms tick cadence with delegated position |
 
-## Program ID
+## Program ID (devnet)
 
-| cluster | id | status |
-| --- | --- | --- |
-| devnet | `fSLsjTm9PGfbrAgosY2kYb1MnFEpn8LALo5cY5a4AkJ` | deployed |
-| mainnet-beta | `fSLsjTm9PGfbrAgosY2kYb1MnFEpn8LALo5cY5a4AkJ` | pending |
+`fSLsjTm9PGfbrAgosY2kYb1MnFEpn8LALo5cY5a4AkJ`
 
 Devnet activity: https://explorer.solana.com/address/fSLsjTm9PGfbrAgosY2kYb1MnFEpn8LALo5cY5a4AkJ?cluster=devnet
 
@@ -62,8 +59,8 @@ The PDA address of every position is `find_program_address(["position", owner, n
 ## Build
 
 ```bash
-git clone https://github.com/Hwaldev/chalna.git
-cd chalna
+git clone https://github.com/Hwaldev/hwal.git
+cd hwal
 anchor build
 yarn install --frozen-lockfile
 ```
@@ -80,11 +77,11 @@ let nonce: u64 = 1;
 
 let (position, _bump) = Pubkey::find_program_address(
     &[b"position", owner.as_ref(), &nonce.to_le_bytes()],
-    &chalna::ID,
+    &hwal::ID,
 );
 let (vault, _vault_bump) = Pubkey::find_program_address(
     &[b"vault", position.as_ref()],
-    &chalna::ID,
+    &hwal::ID,
 );
 // position holds the Position account; vault holds collateral lamports
 ```
@@ -94,7 +91,7 @@ let (vault, _vault_bump) = Pubkey::find_program_address(
 ```ts
 import { AnchorProvider, BN, Program } from "@coral-xyz/anchor";
 import { PublicKey } from "@solana/web3.js";
-import idl from "./programs/chalna/idl/chalna.json";
+import idl from "./programs/hwal/idl/hwal.json";
 
 const PROGRAM_ID = new PublicKey("fSLsjTm9PGfbrAgosY2kYb1MnFEpn8LALo5cY5a4AkJ");
 const provider = AnchorProvider.env();
@@ -167,12 +164,12 @@ The improvement comes from collapsing the off-chain poll loop into an in-rollup 
 
 Most on-chain stop-loss flows look like this: a keeper polls an RPC node for the latest oracle price, sees the trigger, then races to land an instruction on L1 before the price moves again. The end-to-end latency of that loop is dominated by RPC polling cadence (hundreds of ms) and L1 block inclusion (~400 ms slot). Worst case, a multi-second window separates oracle truth from settlement.
 
-Chalna inverts the loop. Position state and trigger logic live inside a single program. Any party with access to a fresh price update can settle. When the position is delegated to MagicBlock's Ephemeral Rollup, the same `tick_position` instruction runs every ~50 ms because the rollup produces a settlement-bound state update at that cadence. Triggers fire inside the rollup's block, then commit back to L1 atomically. The 8-10x latency improvement vs L1-only keepers is the headline number; the deeper claim is that the trigger is no longer a race condition between a bot and the market.
+Hwal inverts the loop. Position state and trigger logic live inside a single program. Any party with access to a fresh price update can settle. When the position is delegated to MagicBlock's Ephemeral Rollup, the same `tick_position` instruction runs every ~50 ms because the rollup produces a settlement-bound state update at that cadence. Triggers fire inside the rollup's block, then commit back to L1 atomically. The 8-10x latency improvement vs L1-only keepers is the headline number; the deeper claim is that the trigger is no longer a race condition between a bot and the market.
 
 ## Project structure
 
 ```
-chalna/
+hwal/
   Anchor.toml
   Cargo.toml
   Cargo.lock
@@ -192,11 +189,11 @@ chalna/
     trailing-stop.ts
   migrations/
     deploy.ts
-  programs/chalna/
+  programs/hwal/
     Cargo.toml
     Xargo.toml
     README.md
-    idl/chalna.json
+    idl/hwal.json
     src/
       lib.rs
       constants.rs
@@ -214,7 +211,7 @@ chalna/
     push-price.ts      keeper-bot.ts
     smoke-test.ts
   tests/
-    chalna.ts
+    hwal.ts
 ```
 
 ## Deploy (devnet)
@@ -251,6 +248,6 @@ MIT, see [LICENSE](LICENSE).
 
 ## Links
 
-- GitHub: Hwaldev/chalna
+- GitHub: Hwaldev/hwal
 - Docs: [docs/](docs/)
 - Devnet explorer: https://explorer.solana.com/address/fSLsjTm9PGfbrAgosY2kYb1MnFEpn8LALo5cY5a4AkJ?cluster=devnet

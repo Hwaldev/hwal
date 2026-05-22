@@ -10,7 +10,7 @@ import { BN, Program } from "@coral-xyz/anchor";
 import { PublicKey, LAMPORTS_PER_SOL, Keypair } from "@solana/web3.js";
 import * as fs from "fs";
 import * as path from "path";
-import { Chalna } from "../target/types/chalna";
+import { Hwal } from "../target/types/hwal";
 
 const CONFIG_SEED = Buffer.from("config");
 const FEED_SEED = Buffer.from("feed");
@@ -30,7 +30,7 @@ function nonceBytes(n: number | bigint): Buffer {
 }
 
 async function pushPrice(
-  program: Program<Chalna>,
+  program: Program<Hwal>,
   feed: PublicKey,
   authority: Keypair,
   newPrice: BN,
@@ -43,7 +43,7 @@ async function pushPrice(
 }
 
 async function tick(
-  program: Program<Chalna>,
+  program: Program<Hwal>,
   position: PublicKey,
   vault: PublicKey,
   feed: PublicKey,
@@ -69,14 +69,14 @@ async function tick(
 async function main(): Promise<void> {
   const provider = anchor.AnchorProvider.env();
   anchor.setProvider(provider);
-  const program = anchor.workspace.chalna as Program<Chalna>;
+  const program = anchor.workspace.hwal as Program<Hwal>;
 
   const wallet = (provider.wallet as anchor.Wallet).payer;
   const feedAuthorityPath = path.join(
     process.env.HOME ?? process.env.USERPROFILE ?? ".",
     ".config",
     "solana",
-    "chalna-feed-authority.json",
+    "hwal-feed-authority.json",
   );
   const feedAuthority = Keypair.fromSecretKey(
     Uint8Array.from(JSON.parse(fs.readFileSync(feedAuthorityPath, "utf8"))),

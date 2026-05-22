@@ -1,7 +1,7 @@
 .PHONY: help build check clean test lint format keeper smoke deploy idl
 
 help:
-	@echo "Chalna make targets:"
+	@echo "Hwal make targets:"
 	@echo "  build         anchor build the program"
 	@echo "  check         cargo check the workspace"
 	@echo "  test          run integration test suite"
@@ -11,7 +11,7 @@ help:
 	@echo "  keeper        run the keeper bot against devnet"
 	@echo "  smoke         run the devnet smoke test"
 	@echo "  deploy        anchor deploy to devnet"
-	@echo "  idl           refresh the IDL JSON snapshot under programs/chalna/idl"
+	@echo "  idl           refresh the IDL JSON snapshot under programs/hwal/idl"
 
 build:
 	anchor build
@@ -45,5 +45,5 @@ deploy:
 
 idl:
 	anchor build
-	mkdir -p programs/chalna/idl
-	cp target/idl/chalna.json programs/chalna/idl/chalna.json
+	mkdir -p programs/hwal/idl
+	cp target/idl/hwal.json programs/hwal/idl/hwal.json

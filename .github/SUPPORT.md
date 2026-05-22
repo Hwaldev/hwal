@@ -8,16 +8,16 @@ The architecture, threat model, and instruction reference live under
 ## Questions
 
 For general questions, design discussion, or integration help, open a thread
-under [GitHub Discussions](https://github.com/Hwaldev/chalna/discussions).
+under [GitHub Discussions](https://github.com/Hwaldev/hwal/discussions).
 
 ## Bug reports
 
-Open a [bug report](https://github.com/Hwaldev/chalna/issues/new?template=bug_report.md)
+Open a [bug report](https://github.com/Hwaldev/hwal/issues/new?template=bug_report.md)
 with the reproduction steps and environment details requested by the template.
 
 ## Feature requests
 
-Open a [feature request](https://github.com/Hwaldev/chalna/issues/new?template=feature_request.md)
+Open a [feature request](https://github.com/Hwaldev/hwal/issues/new?template=feature_request.md)
 that describes the use case and proposed behavior.
 
 ## Security disclosures

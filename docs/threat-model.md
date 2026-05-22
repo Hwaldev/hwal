@@ -1,6 +1,6 @@
 # Threat Model
 
-This document enumerates the attackers the Chalna program defends against
+This document enumerates the attackers the Hwal program defends against
 and the residual risks the protocol does not address.
 
 ## In scope

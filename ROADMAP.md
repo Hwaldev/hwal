@@ -1,6 +1,6 @@
 # Roadmap
 
-This document tracks shipped milestones for Chalna. For in-progress work,
+This document tracks shipped milestones for Hwal. For in-progress work,
 see open issues and pull requests on GitHub.
 
 ## Shipped (V0)

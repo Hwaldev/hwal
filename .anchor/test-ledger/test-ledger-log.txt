@@ -1,5 +1,0 @@
-logrotate is not supported on this platform
-Ledger location: .anchor\test-ledger
-Log: .anchor\test-ledger\validator.log
-Initializing...
-Error: failed to start validator: Failed to create ledger at .anchor\test-ledger: io error: Error checking to unpack genesis archive: IO error: 액세스가 거부되었습니다. (os error 5)

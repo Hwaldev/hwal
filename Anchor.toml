@@ -6,10 +6,10 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-chalna = "fSLsjTm9PGfbrAgosY2kYb1MnFEpn8LALo5cY5a4AkJ"
+hwal = "fSLsjTm9PGfbrAgosY2kYb1MnFEpn8LALo5cY5a4AkJ"
 
 [programs.devnet]
-chalna = "fSLsjTm9PGfbrAgosY2kYb1MnFEpn8LALo5cY5a4AkJ"
+hwal = "fSLsjTm9PGfbrAgosY2kYb1MnFEpn8LALo5cY5a4AkJ"
 
 [registry]
 url = "https://api.apr.dev"

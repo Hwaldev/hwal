@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
   - name: Documentation
-    url: https://github.com/Hwaldev/chalna/tree/main/docs
+    url: https://github.com/Hwaldev/hwal/tree/main/docs
     about: Read the architecture and instruction reference before opening an issue.
   - name: Security disclosure
-    url: https://github.com/Hwaldev/chalna/blob/main/SECURITY.md
+    url: https://github.com/Hwaldev/hwal/blob/main/SECURITY.md
     about: For security-sensitive reports, follow the disclosure policy in SECURITY.md.

@@ -1,6 +1,6 @@
 import * as anchor from "@coral-xyz/anchor";
 import { Program } from "@coral-xyz/anchor";
-import { Chalna } from "../target/types/chalna";
+import { Hwal } from "../target/types/hwal";
 import { PublicKey } from "@solana/web3.js";
 
 const CONFIG_SEED = Buffer.from("config");
@@ -9,7 +9,7 @@ const STATUS_OPEN = 0;
 async function tickAll(intervalMs: number) {
   const provider = anchor.AnchorProvider.env();
   anchor.setProvider(provider);
-  const program = anchor.workspace.chalna as Program<Chalna>;
+  const program = anchor.workspace.hwal as Program<Hwal>;
 
   const keeper = (provider.wallet as anchor.Wallet).payer;
   const [configPda] = PublicKey.findProgramAddressSync(

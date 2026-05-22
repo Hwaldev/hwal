@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Report a defect in the Chalna program or keeper scripts
+about: Report a defect in the Hwal program or keeper scripts
 title: "[bug] "
 labels: bug
 assignees: ''
@@ -12,7 +12,7 @@ A clear and concise description of what the bug is.
 
 ## Component
 
-- [ ] Anchor program (programs/chalna)
+- [ ] Anchor program (programs/hwal)
 - [ ] Keeper bot (scripts/keeper-bot.ts)
 - [ ] Deploy / setup scripts
 - [ ] Tests

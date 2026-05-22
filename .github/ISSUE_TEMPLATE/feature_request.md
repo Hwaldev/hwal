@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest a new feature or improvement for Chalna
+about: Suggest a new feature or improvement for Hwal
 title: "[feat] "
 labels: enhancement
 assignees: ''

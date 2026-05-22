@@ -1,5 +1,5 @@
-# Chalna devnet deploy + setup
-# Run from chalna/ project root after `anchor build` and `npm install`.
+# Hwal devnet deploy + setup
+# Run from hwal/ project root after `anchor build` and `npm install`.
 # Prerequisite: wallet at C:\Users\baayo\.config\solana\id.json with >= 5 SOL on devnet.
 
 $ErrorActionPreference = "Stop"

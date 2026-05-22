@@ -1,4 +1,4 @@
-# Contributing to Chalna
+# Contributing to Hwal
 
 Thanks for taking the time to look at the codebase. Pull requests and issues
 are both welcome.
@@ -6,8 +6,8 @@ are both welcome.
 ## Local setup
 
 ```bash
-git clone https://github.com/Hwaldev/chalna.git
-cd chalna
+git clone https://github.com/Hwaldev/hwal.git
+cd hwal
 yarn install --frozen-lockfile
 anchor build
 ```

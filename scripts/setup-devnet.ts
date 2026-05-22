@@ -1,6 +1,6 @@
 import * as anchor from "@coral-xyz/anchor";
 import { Program, BN } from "@coral-xyz/anchor";
-import { Chalna } from "../target/types/chalna";
+import { Hwal } from "../target/types/hwal";
 import { PublicKey, SystemProgram, Keypair } from "@solana/web3.js";
 import * as fs from "fs";
 import * as path from "path";
@@ -17,7 +17,7 @@ function symbolBytes(s: string): Buffer {
 async function main() {
   const provider = anchor.AnchorProvider.env();
   anchor.setProvider(provider);
-  const program = anchor.workspace.chalna as Program<Chalna>;
+  const program = anchor.workspace.hwal as Program<Hwal>;
 
   const admin = (provider.wallet as anchor.Wallet).payer;
   console.log("admin:", admin.publicKey.toBase58());
@@ -27,7 +27,7 @@ async function main() {
     process.env.HOME ?? process.env.USERPROFILE ?? ".",
     ".config",
     "solana",
-    "chalna-feed-authority.json",
+    "hwal-feed-authority.json",
   );
 
   let feedAuthority: Keypair;

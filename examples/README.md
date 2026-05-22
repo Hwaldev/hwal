@@ -1,6 +1,6 @@
 # examples
 
-Runnable demos that exercise the Chalna program end to end. Each script is
+Runnable demos that exercise the Hwal program end to end. Each script is
 self-contained: it loads the wallet from `ANCHOR_WALLET`, generates the
 required position nonce, and drives a complete lifecycle so you can copy
 the same code into your own integration.

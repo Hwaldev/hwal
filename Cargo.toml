@@ -5,11 +5,11 @@ resolver = "2"
 [workspace.package]
 version = "0.1.0"
 edition = "2021"
-authors = ["Chalna core"]
+authors = ["Hwal core"]
 license = "MIT"
 rust-version = "1.78"
-description = "Chalna: 50ms-precision on-chain trigger engine for Solana"
-repository = "https://github.com/Hwaldev/chalna"
+description = "Hwal: 50ms-precision on-chain trigger engine for Solana"
+repository = "https://github.com/Hwaldev/hwal"
 readme = "README.md"
 keywords = ["solana", "anchor", "trigger", "stop-loss", "magicblock"]
 categories = ["cryptography", "network-programming", "finance"]

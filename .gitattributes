@@ -23,6 +23,6 @@ Makefile text eol=lf
 
 docs/* linguist-documentation
 tests/fixtures/* linguist-generated
-programs/chalna/idl/*.json linguist-generated
+programs/hwal/idl/*.json linguist-generated
 target/* linguist-generated
 node_modules/* linguist-vendored

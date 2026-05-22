@@ -7,7 +7,7 @@
 | 0.1.x | yes |
 | < 0.1 | no |
 
-Chalna is pre-1.0. The on-chain program may receive breaking upgrades in the
+Hwal is pre-1.0. The on-chain program may receive breaking upgrades in the
 0.1.x line. Each release notes the upgrade path under `CHANGELOG.md`.
 
 ## Reporting a vulnerability
@@ -18,7 +18,7 @@ issue.
 
 Send a report to the maintainer listed in the GitHub repository profile, or
 open a private security advisory via
-`https://github.com/Hwaldev/chalna/security/advisories/new`.
+`https://github.com/Hwaldev/hwal/security/advisories/new`.
 
 Include:
 

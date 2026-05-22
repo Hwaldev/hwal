@@ -15,18 +15,18 @@ COPY scripts ./scripts
 
 FROM node:20-bookworm-slim
 
-RUN useradd -r -u 1001 -m chalna
+RUN useradd -r -u 1001 -m hwal
 
-WORKDIR /home/chalna/app
+WORKDIR /home/hwal/app
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/tsconfig.json ./tsconfig.json
 COPY --from=builder /app/programs ./programs
 COPY --from=builder /app/scripts ./scripts
 
-USER chalna
+USER hwal
 
-ENV CHALNA_KEEPER_INTERVAL_MS=500
+ENV HWAL_KEEPER_INTERVAL_MS=500
 
 ENTRYPOINT ["npx", "ts-node", "scripts/keeper-bot.ts"]
 CMD ["500"]

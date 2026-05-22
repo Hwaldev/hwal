@@ -1,6 +1,6 @@
 import * as anchor from "@coral-xyz/anchor";
 import { Program, BN } from "@coral-xyz/anchor";
-import { Chalna } from "../target/types/chalna";
+import { Hwal } from "../target/types/hwal";
 import {
   Keypair,
   LAMPORTS_PER_SOL,
@@ -43,10 +43,10 @@ async function airdropOrSkip(connection: any, pk: PublicKey, sol: number) {
 async function main() {
   const provider = anchor.AnchorProvider.env();
   anchor.setProvider(provider);
-  const program = anchor.workspace.chalna as Program<Chalna>;
+  const program = anchor.workspace.hwal as Program<Hwal>;
 
   const wallet = (provider.wallet as anchor.Wallet).payer;
-  console.log("==> chalna devnet smoke test");
+  console.log("==> hwal devnet smoke test");
   console.log("    program:", program.programId.toBase58());
   console.log("    funder :", wallet.publicKey.toBase58());
 
@@ -54,7 +54,7 @@ async function main() {
     process.env.HOME ?? process.env.USERPROFILE ?? ".",
     ".config",
     "solana",
-    "chalna-feed-authority.json",
+    "hwal-feed-authority.json",
   );
   const feedAuthority = Keypair.fromSecretKey(
     Uint8Array.from(JSON.parse(fs.readFileSync(feedAuthorityPath, "utf8"))),

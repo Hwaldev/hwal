@@ -13,7 +13,7 @@ Briefly describe what this pull request changes and why.
 
 ## Component
 
-- [ ] Anchor program (programs/chalna)
+- [ ] Anchor program (programs/hwal)
 - [ ] Keeper bot (scripts/keeper-bot.ts)
 - [ ] Setup / deploy scripts
 - [ ] Tests

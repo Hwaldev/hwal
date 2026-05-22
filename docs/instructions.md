@@ -1,6 +1,6 @@
 # Instructions reference
 
-Per-instruction reference for the Chalna Anchor program. For account
+Per-instruction reference for the Hwal Anchor program. For account
 layout and lifecycle, see [architecture.md](architecture.md).
 
 ## initialize_config

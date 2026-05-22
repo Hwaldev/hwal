@@ -35,4 +35,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - V2 will move `tick_position` execution into a MagicBlock ephemeral rollup
   for the 50 ms cadence path.
 
-[0.1.0]: https://github.com/Hwaldev/chalna/releases/tag/v0.1.0
+[0.1.0]: https://github.com/Hwaldev/hwal/releases/tag/v0.1.0

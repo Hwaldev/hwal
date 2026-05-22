@@ -1,6 +1,6 @@
 # Architecture
 
-Chalna is a single Anchor program with three account types and eight
+Hwal is a single Anchor program with three account types and eight
 instructions. The on-chain state is minimal by design: a `Config` account
 holds program-wide policy, a `PriceFeed` account stores the most recent
 price update for a symbol, and one `Position` PDA per (owner, nonce)
