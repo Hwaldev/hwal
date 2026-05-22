@@ -1,18 +1,33 @@
 {
   "name": "chalna",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
-  "description": "Chalna trigger engine scaffold",
+  "description": "Chalna 50ms trigger engine for Solana",
   "license": "MIT",
   "scripts": {
-    "test": "anchor test --skip-local-validator"
+    "lint": "prettier --check tests/**/*.ts scripts/**/*.ts",
+    "lint:fix": "prettier --write tests/**/*.ts scripts/**/*.ts",
+    "test": "anchor test --skip-local-validator",
+    "test:local": "anchor test",
+    "deploy:devnet": "anchor deploy --provider.cluster devnet",
+    "setup:devnet": "ts-node scripts/setup-devnet.ts",
+    "tick:devnet": "ts-node scripts/keeper-bot.ts"
   },
   "dependencies": {
-    "@coral-xyz/anchor": "^0.30.0",
-    "@solana/web3.js": "^1.95.0"
+    "@coral-xyz/anchor": "^0.31.1",
+    "@solana/web3.js": "^1.95.0",
+    "bn.js": "^5.2.1"
   },
   "devDependencies": {
-    "@types/node": "^20.0.0",
+    "@types/bn.js": "^5.1.6",
+    "@types/chai": "^4.3.16",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.14.2",
+    "chai": "^4.4.1",
+    "mocha": "^10.4.0",
+    "prettier": "^3.3.0",
+    "ts-mocha": "^10.0.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
   }
 }
