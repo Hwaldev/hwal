@@ -2,8 +2,17 @@
 
 ## Documentation
 
-The architecture, threat model, and instruction reference live under
-[docs/](../docs). The devnet deploy runbook is at [DEPLOY.md](../DEPLOY.md).
+The architecture, threat model, and instruction reference are published at
+https://hwal.fun/docs and also live under [docs/](../docs). The devnet deploy
+runbook is at [DEPLOY.md](../DEPLOY.md).
+
+## Website
+
+https://hwal.fun
+
+## X
+
+https://x.com/hwalfun
 
 ## Questions
 
