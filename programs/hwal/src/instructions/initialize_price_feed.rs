@@ -1,7 +1,7 @@
 use crate::constants::*;
 use crate::errors::HwalError;
 use crate::events::PriceFeedInitialized;
-use crate::state::{Config, PriceFeed};
+use crate::state::{Config, PriceFeed, FEED_SOURCE_AUTHORITY};
 use anchor_lang::prelude::*;
 
 #[derive(Accounts)]
@@ -48,6 +48,9 @@ pub fn handler(
     feed.last_updated = clock.unix_timestamp;
     feed.update_count = 0;
     feed.bump = ctx.bumps.feed;
+    feed.source = FEED_SOURCE_AUTHORITY;
+    feed.lazer_channel = 0;
+    feed.lazer_feed_id = 0;
 
     emit!(PriceFeedInitialized {
         feed: feed.key(),

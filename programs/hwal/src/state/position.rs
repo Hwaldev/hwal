@@ -23,5 +23,6 @@ pub struct Position {
     pub tick_count: u64,
     pub bump: u8,
     pub vault_bump: u8,
-    pub _reserved: [u8; 32],
+    pub er_delegated: u8,
+    pub _reserved: [u8; 31],
 }

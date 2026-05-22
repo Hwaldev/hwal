@@ -107,4 +107,27 @@ pub mod hwal {
     pub fn cancel_position(ctx: Context<CancelPosition>) -> Result<()> {
         instructions::cancel_position::handler(ctx)
     }
+
+    pub fn register_lazer_feed(
+        ctx: Context<RegisterLazerFeed>,
+        lazer_feed_id: u64,
+        channel: u8,
+    ) -> Result<()> {
+        instructions::register_lazer_feed::handler(ctx, lazer_feed_id, channel)
+    }
+
+    pub fn update_price_feed_from_lazer(
+        ctx: Context<UpdatePriceFeedFromLazer>,
+        payload: Vec<u8>,
+    ) -> Result<()> {
+        instructions::update_price_feed_from_lazer::handler(ctx, payload)
+    }
+
+    pub fn delegate_position(ctx: Context<DelegatePosition>) -> Result<()> {
+        instructions::delegate_position::handler(ctx)
+    }
+
+    pub fn undelegate_position(ctx: Context<UndelegatePosition>) -> Result<()> {
+        instructions::undelegate_position::handler(ctx)
+    }
 }

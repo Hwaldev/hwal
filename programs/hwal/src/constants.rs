@@ -33,3 +33,11 @@ pub const TRIGGER_NONE: u8 = 0;
 pub const TRIGGER_STOP_LOSS: u8 = 1;
 pub const TRIGGER_TAKE_PROFIT: u8 = 2;
 pub const TRIGGER_TRAILING: u8 = 3;
+
+pub const MAX_LAZER_PAYLOAD_AGE_SECS: i64 = 5;
+
+pub const MAGICBLOCK_DELEGATION_PROGRAM_ID: Pubkey =
+    anchor_lang::solana_program::pubkey!("DELeGGvXpWV2fqJUhqcF5ZSYMS4JTLjteaAMARRSaeSh");
+
+pub const MAGICBLOCK_OWNER_PROGRAM_ID: Pubkey =
+    anchor_lang::solana_program::pubkey!("DELeGGvXpWV2fqJUhqcF5ZSYMS4JTLjteaAMARRSaeSh");

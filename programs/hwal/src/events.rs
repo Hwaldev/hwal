@@ -75,3 +75,34 @@ pub struct PositionCancelled {
     pub collateral_returned: u64,
     pub cancelled_at: i64,
 }
+
+#[event]
+pub struct LazerFeedRegistered {
+    pub feed: Pubkey,
+    pub lazer_feed_id: u64,
+    pub channel: u8,
+}
+
+#[event]
+pub struct LazerPriceVerified {
+    pub feed: Pubkey,
+    pub lazer_feed_id: u64,
+    pub channel: u8,
+    pub price: u64,
+    pub payload_timestamp: i64,
+    pub on_chain_timestamp: i64,
+}
+
+#[event]
+pub struct PositionDelegated {
+    pub position: Pubkey,
+    pub owner: Pubkey,
+    pub delegated_at: i64,
+}
+
+#[event]
+pub struct PositionUndelegated {
+    pub position: Pubkey,
+    pub owner: Pubkey,
+    pub undelegated_at: i64,
+}

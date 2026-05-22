@@ -40,4 +40,20 @@ pub enum HwalError {
     NoTriggerHit,
     #[msg("Feed mismatch: position was opened against a different feed")]
     FeedMismatch,
+    #[msg("Feed is not configured as a Pyth Lazer feed")]
+    FeedNotLazer,
+    #[msg("Feed is already configured as a Pyth Lazer feed")]
+    FeedAlreadyLazer,
+    #[msg("Lazer payload is malformed")]
+    LazerPayloadInvalid,
+    #[msg("Lazer payload feed id does not match the registered feed")]
+    LazerFeedIdMismatch,
+    #[msg("Lazer payload timestamp is too old or in the future")]
+    LazerPayloadStale,
+    #[msg("Missing or invalid ed25519 signature verification instruction")]
+    LazerSignatureMissing,
+    #[msg("Position is already delegated to the ER")]
+    PositionAlreadyDelegated,
+    #[msg("Position is not currently delegated to the ER")]
+    PositionNotDelegated,
 }

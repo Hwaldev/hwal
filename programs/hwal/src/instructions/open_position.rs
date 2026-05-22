@@ -118,6 +118,7 @@ pub fn handler(
     position.tick_count = 0;
     position.bump = ctx.bumps.position;
     position.vault_bump = 0;
+    position.er_delegated = 0;
 
     let config = &mut ctx.accounts.config;
     config.total_positions_opened = config.total_positions_opened.saturating_add(1);
