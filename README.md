@@ -1,4 +1,4 @@
-# Hwal 刹那
+# Hwal 활
 
 <p align="center">
   <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-1f6f3c?style=for-the-badge" alt="license"/></a>
@@ -33,12 +33,9 @@ Stop-loss, take-profit, and trailing-stop orders that fire from program state, n
 | Pyth Lazer (V1) | planned | 1 ms channel verified on-chain into PriceFeed cache |
 | MagicBlock ER (V2) | planned | position delegated, tick runs in 50 ms ER slots, atomic L1 commit |
 
-## Program ID
+## Program ID (devnet)
 
-| cluster | id | status |
-| --- | --- | --- |
-| devnet | `fSLsjTm9PGfbrAgosY2kYb1MnFEpn8LALo5cY5a4AkJ` | deployed |
-| mainnet-beta | `fSLsjTm9PGfbrAgosY2kYb1MnFEpn8LALo5cY5a4AkJ` | pending |
+`fSLsjTm9PGfbrAgosY2kYb1MnFEpn8LALo5cY5a4AkJ`
 
 Devnet activity: https://explorer.solana.com/address/fSLsjTm9PGfbrAgosY2kYb1MnFEpn8LALo5cY5a4AkJ?cluster=devnet
 
