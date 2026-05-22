@@ -1,6 +1,10 @@
 # Hwal 활
 
 <p align="center">
+  <img src="./banner.png" alt="Hwal"/>
+</p>
+
+<p align="center">
   <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-1f6f3c?style=for-the-badge" alt="license"/></a>
   <a href="https://github.com/Hwaldev/hwal/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/Hwaldev/hwal/ci.yml?branch=main&style=for-the-badge&label=ci&color=1f6f3c" alt="ci"/></a>
   <a href="https://github.com/Hwaldev/hwal/releases"><img src="https://img.shields.io/github/v/release/Hwaldev/hwal?style=for-the-badge&color=ff5b1f" alt="release"/></a>
