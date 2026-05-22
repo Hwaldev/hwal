@@ -14,6 +14,9 @@
 </p>
 
 <p align="center">
+  <a href="https://hwal.fun"><img src="https://img.shields.io/badge/website-hwal.fun-ff5b1f?style=for-the-badge" alt="website"/></a>
+  <a href="https://hwal.fun/docs"><img src="https://img.shields.io/badge/docs-hwal.fun%2Fdocs-1f6f3c?style=for-the-badge" alt="docs"/></a>
+  <a href="https://x.com/hwalfun"><img src="https://img.shields.io/badge/x-@hwalfun-000000?style=for-the-badge" alt="x"/></a>
   <a href="https://solana.com"><img src="https://img.shields.io/badge/network-Solana_devnet-9945ff?style=for-the-badge" alt="solana devnet"/></a>
   <a href="https://www.anchor-lang.com"><img src="https://img.shields.io/badge/anchor-0.31.1-512bd4?style=for-the-badge" alt="anchor"/></a>
   <a href="https://www.magicblock.gg"><img src="https://img.shields.io/badge/runtime-MagicBlock_ER-000000?style=for-the-badge" alt="magicblock"/></a>
@@ -252,6 +255,8 @@ MIT, see [LICENSE](LICENSE).
 
 ## Links
 
-- GitHub: Hwaldev/hwal
-- Docs: [docs/](docs/)
+- Website: https://hwal.fun
+- Docs: https://hwal.fun/docs (also mirrored in [docs/](docs/))
+- X: https://x.com/hwalfun
+- GitHub: https://github.com/Hwaldev/hwal
 - Devnet explorer: https://explorer.solana.com/address/fSLsjTm9PGfbrAgosY2kYb1MnFEpn8LALo5cY5a4AkJ?cluster=devnet

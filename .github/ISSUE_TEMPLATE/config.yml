@@ -1,7 +1,7 @@
 blank_issues_enabled: false
 contact_links:
   - name: Documentation
-    url: https://github.com/Hwaldev/hwal/tree/main/docs
+    url: https://hwal.fun/docs
     about: Read the architecture and instruction reference before opening an issue.
   - name: Security disclosure
     url: https://github.com/Hwaldev/hwal/blob/main/SECURITY.md
