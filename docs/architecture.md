@@ -94,12 +94,16 @@ update at `update_config` time, so payouts are guaranteed to fit.
 
 `tick_position` accepts any signer as the keeper. There is no allowlist. The
 0.25%-of-collateral default reward is enough to make MEV-style competition
-profitable; whoever lands the tick first earns it.
+profitable. Whoever lands the tick first earns it.
 
-This is the key property the MagicBlock ER integration relies on. When a
-position is delegated to the ER, the ER worker becomes a permissionless
-keeper that fires every ~50 ms. L1 keepers continue to operate as fallback,
-so a position is never strictly worse off than running on L1 alone.
+This is the key property the MagicBlock ER and Pyth Lazer integrations rely
+on. The Lazer verify path lets any participant push a fresh 1 ms price into
+the `PriceFeed` cache, and the permissionless `tick_position` lets any
+participant act on it. When the position is delegated to a MagicBlock ER,
+both calls happen inside the rollup at 50 ms cadence, and the settlement
+commits back to L1 atomically. L1 keepers continue to operate as the
+fallback path, so an undelegated position or a Lazer outage degrades to V0
+behavior rather than freezing.
 
 ## Failure modes
 

@@ -29,10 +29,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Notes
 
-- V0 ships with an authority-driven mock price feed. V1 will swap this for a
-  Pyth Lazer verify path while keeping the authority for emergency
-  override.
-- V2 will move `tick_position` execution into a MagicBlock ephemeral rollup
-  for the 50 ms cadence path.
+- V0 ships with an authority-driven price feed and a polled L1 keeper.
+  The trigger evaluation, keeper market, and settlement path are the
+  pieces V1 and V2 inherit unchanged.
+- V1 will add `update_price_feed_from_lazer`. A signed Pyth Lazer
+  message is verified on-chain and written into the existing
+  `PriceFeed` cache, so `tick_position` keeps reading from
+  `feed.price`. The dev authority stays available as an emergency
+  fallback in case of a Lazer outage.
+- V2 will add `delegate_position`, `commit_position`, and
+  `undelegate_position`. `tick_position` then runs inside a MagicBlock
+  ephemeral rollup at 50 ms cadence, and settlement commits back to L1
+  atomically when a trigger fires.
 
 [0.1.0]: https://github.com/Hwaldev/hwal/releases/tag/v0.1.0

@@ -20,11 +20,14 @@
   <a href="https://solana.com"><img src="https://img.shields.io/badge/network-Solana_devnet-9945ff?style=for-the-badge" alt="solana devnet"/></a>
   <a href="https://www.anchor-lang.com"><img src="https://img.shields.io/badge/anchor-0.31.1-512bd4?style=for-the-badge" alt="anchor"/></a>
   <a href="https://www.magicblock.gg"><img src="https://img.shields.io/badge/runtime-MagicBlock_ER-000000?style=for-the-badge" alt="magicblock"/></a>
+  <a href="https://pyth.network/lazer"><img src="https://img.shields.io/badge/oracle-Pyth_Lazer_1ms-9933ff?style=for-the-badge" alt="pyth lazer"/></a>
 </p>
 
 Sub-slot conditional execution primitive on Solana.
 
-Stop-loss, take-profit, and trailing-stop orders that fire from program state, not from a keeper polling an L1 RPC. Every position is a single PDA with a snapshot of its triggers and a trailing extreme. Any caller (the trader, a permissionless keeper, a MagicBlock ephemeral rollup) can submit a `tick_position` instruction. The program re-reads the configured price feed, advances the trailing extreme, evaluates the three trigger conditions, and if any fires it settles the position in the same transaction by paying the keeper, the fee receiver, and the trader.
+Stop-loss, take-profit, and trailing-stop orders that fire from program state, not from a keeper polling an L1 RPC. Every position is a single PDA with a snapshot of its triggers and a trailing extreme. Any caller (the trader, a permissionless keeper, a MagicBlock ephemeral rollup worker) can submit a `tick_position` instruction. The program re-reads the configured price feed, advances the trailing extreme, evaluates the three trigger conditions, and if any fires it settles the position in the same transaction by paying the keeper, the fee receiver, and the trader.
+
+The interesting pairing: a Pyth Lazer 1ms channel pushed into a MagicBlock ephemeral rollup with 50ms slots collapses the trigger reflex into a single rollup block. Settlement still commits back to Solana L1 atomically. The same Anchor program works on plain L1 with a polled keeper as the fallback path.
 
 ## Features
 
@@ -37,8 +40,8 @@ Stop-loss, take-profit, and trailing-stop orders that fire from program state, n
 | owner manual close | stable | `cancel_position` refunds full collateral |
 | native SOL collateral | stable | system-owned vault PDA per position |
 | mock price feed (V0) | stable | authority-driven for development |
-| Pyth Lazer (V1) | planned | 1 ms channel verified on-chain into PriceFeed cache |
-| MagicBlock ER (V2) | planned | position delegated, tick runs in 50 ms ER slots, atomic L1 commit |
+| Pyth Lazer verify path (V1) | planned | 1 ms channel verified on-chain into PriceFeed cache |
+| MagicBlock ER delegation (V2) | planned | position delegated, tick runs in 50 ms ER slots, atomic L1 commit |
 
 ## Program ID (devnet)
 
@@ -50,12 +53,14 @@ Devnet activity: https://explorer.solana.com/address/fSLsjTm9PGfbrAgosY2kYb1MnFE
 
 ```mermaid
 flowchart LR
+    Lazer[Pyth Lazer 1ms] -->|signed push| Feed[Price Feed PDA]
     Trader -->|open_position SOL collateral| Position[Position PDA]
     Position -->|owns lamports| Vault[Vault PDA]
-    Authority -->|update_price_feed| Feed[Price Feed PDA]
-    Keeper -->|tick_position| Position
-    Position -->|reads| Feed
-    Position -->|trigger fires| Settle{Settlement}
+    Trader -->|delegate_position V2| ER[(MagicBlock ER 50ms)]
+    Position -.->|state lives in| ER
+    Keeper -->|tick_position| ER
+    ER -->|reads| Feed
+    ER -->|atomic L1 commit on fire| Settle{Settlement}
     Settle -->|keeper reward 0.25%| Keeper
     Settle -->|protocol fee 0.50%| FeeReceiver
     Settle -->|net collateral| Trader
@@ -160,18 +165,21 @@ Both bps values are admin-tunable bounded by `MAX_FEE_BPS = 500` and `MAX_KEEPER
 
 ## Latency comparison
 
-| path | poll cadence | end-to-end latency (best) | end-to-end latency (worst) |
-| --- | --- | --- | --- |
-| L1 keeper (V0) | 500 ms | ~700 ms | ~1500 ms |
-| MagicBlock ER (V2) | 50 ms | ~80 ms | ~180 ms |
+| path | price cadence | block cadence | end-to-end (best) | end-to-end (worst) |
+| --- | --- | --- | --- | --- |
+| L1 keeper, polled Pyth Core (V0) | ~400 ms | 400 ms | ~700 ms | ~1500 ms |
+| L1 keeper, Pyth Lazer 1 ms (V1) | 1 ms | 400 ms | ~450 ms | ~900 ms |
+| MagicBlock ER + Pyth Lazer (V2) | 1 ms | 50 ms | ~50 ms | ~120 ms |
 
-The improvement comes from collapsing the off-chain poll loop into an in-rollup tick. Trigger fires inside the rollup block, settlement commits back to L1 atomically.
+V0 to V1 collapses the polling cadence (the off-chain keeper no longer dominates the budget). V1 to V2 collapses the block cadence (the ER block produces every 50 ms instead of every 400 ms). Both improvements are independent: Lazer alone gets you to ~450 ms, ER alone gets you to ~80 ms, the pair gets you to ~50 ms. Settlement commits to L1 atomically in every path.
 
 ## Why this matters
 
-Most on-chain stop-loss flows look like this: a keeper polls an RPC node for the latest oracle price, sees the trigger, then races to land an instruction on L1 before the price moves again. The end-to-end latency of that loop is dominated by RPC polling cadence (hundreds of ms) and L1 block inclusion (~400 ms slot). Worst case, a multi-second window separates oracle truth from settlement.
+Most on-chain stop-loss flows look like this: a keeper polls an RPC node for the latest oracle price, sees the trigger, then races to land an instruction on L1 before the price moves again. The end-to-end latency of that loop is dominated by two things. RPC polling cadence (hundreds of ms, capped by rate limits and bot cost) and L1 block inclusion (~400 ms slot). Worst case, a multi-second window separates oracle truth from settlement.
 
-Hwal inverts the loop. Position state and trigger logic live inside a single program. Any party with access to a fresh price update can settle. When the position is delegated to MagicBlock's Ephemeral Rollup, the same `tick_position` instruction runs every ~50 ms because the rollup produces a settlement-bound state update at that cadence. Triggers fire inside the rollup's block, then commit back to L1 atomically. The 8-10x latency improvement vs L1-only keepers is the headline number; the deeper claim is that the trigger is no longer a race condition between a bot and the market.
+Hwal inverts the loop. Position state and trigger logic live inside a single Anchor program. Any party with access to a fresh price update can settle. Two recently shipped pieces of Solana infrastructure remove the two remaining bottlenecks. Pyth Lazer makes the latest price available on a 1 ms channel, verifiable on-chain. MagicBlock's ephemeral rollups produce 50 ms slots with atomic L1 commit. Hwal is the trigger primitive that sits on top of both: position state delegates into the ER, Lazer pushes into the cached PriceFeed every ms, `tick_position` runs at ER cadence, and the moment a trigger fires the settlement commits back to L1 in one transaction.
+
+The trigger stops being a race condition between an off-chain bot and the market. It becomes a deterministic state transition that happens in the same block as the price update.
 
 ## Project structure
 
@@ -235,9 +243,9 @@ yarn setup:devnet
 
 ## Versioning
 
-- V0 (this repo): mock authority-driven feed, L1 keeper bot, deployable end-to-end on devnet today.
-- V1: swap `update_price_feed` for a Pyth Lazer verify path. Authority keypair stays only for emergency override.
-- V2: MagicBlock ER delegation. Position state is delegated by the owner, `tick_position` runs in the ER at 50 ms cadence, settlement commits back to L1.
+- V0 (this repo): authority-driven price feed and L1 keeper bot. Full lifecycle deployable on devnet today. Latency floor sits at the polling cadence and the L1 slot.
+- V1: Pyth Lazer verify path. New `update_price_feed_from_lazer` instruction verifies a signed Lazer message and writes into the existing PriceFeed cache. The authority keypair stays only as an emergency override. `tick_position` is untouched.
+- V2: MagicBlock ER delegation. Position state delegates into the ER via `delegate_position`. `tick_position` runs inside the rollup at 50 ms cadence. On trigger, the settlement state delta commits back to L1 atomically. L1 keeper continues to work as the fallback path for undelegated positions.
 
 See [ROADMAP.md](ROADMAP.md) for the full shipped list.
 
